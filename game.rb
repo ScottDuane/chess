@@ -21,8 +21,9 @@ class Game
 
       move = @current_player.get_move
       puts "Move is: #{move}"
-      successful_move = @board.make_move(move[0], move[1], @other_player.color)
-      
+      # debugger
+      successful_move = @board.make_move(move[0], move[1], @current_player.color)
+
       if successful_move
         switch_players
       else

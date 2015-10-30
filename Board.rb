@@ -102,6 +102,38 @@ class Board
     copy
   end
 
+  def sum(color)
+    sum = 0
+
+    @grid.each do |row|
+      row.each do |cell|
+        if cell.color == color
+          if cell.is_a?(Pawn)
+            sum += 1
+          elsif cell.is_a?(Bishop) || cell.is_a?(Knight)
+            sum += 3
+          elsif cell.is_a?(Rook)
+            sum += 5
+          elsif cell.is_a?(Queen)
+            sum += 9
+          end
+        else
+          if cell.is_a?(Pawn)
+            sum -= 1
+          elsif cell.is_a?(Bishop) || cell.is_a?(Knight)
+            sum -= 3
+          elsif cell.is_a?(Rook)
+            sum -= 5
+          elsif cell.is_a?(Queen)
+            sum -= 9
+          end
+        end
+      end
+    end
+
+    sum
+  end
+
   def in_check?(color)
     color == :white ? other_color = :black : other_color = :white
     king_location = find_king(color)
@@ -145,4 +177,16 @@ class Board
     true
   end
 
+  def all_pieces_of_color(color)
+    pieces = []
+    @grid.each do |row|
+      row.each do |cell|
+        if cell.color == color
+          pieces << cell
+        end
+      end
+    end
+
+    pieces
+  end
 end
